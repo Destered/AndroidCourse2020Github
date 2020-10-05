@@ -19,7 +19,7 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addIcon3"
-        tools:srcCompat="@drawable/addicon4" />
+        app:srcCompat="@drawable/addicon4" />
 
     <ImageView
         android:id="@+id/imageView_addIcon2"
@@ -33,7 +33,7 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addIcon1"
-        tools:srcCompat="@drawable/addicon2" />
+        app:srcCompat="@drawable/addicon2" />
 
     <ImageView
         android:id="@+id/imageView_addIcon3"
@@ -47,7 +47,7 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addIcon2"
-        tools:srcCompat="@drawable/addicon3" />
+        app:srcCompat="@drawable/addicon3" />
 
     <ImageView
         android:id="@+id/imageView_avatar"
@@ -57,13 +57,13 @@
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/avatar" />
+        app:srcCompat="@drawable/avatar" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="atari_dnd"
         android:textColor="#000000"
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:text="Расскажите о себе"
         android:textColor="#01579B"
         app:layout_constraintStart_toEndOf="@+id/imageView_avatar"
@@ -107,8 +107,8 @@
 
     <Button
         android:id="@+id/btn_edit"
-        android:layout_width="366dp"
-        android:layout_height="39dp"
+        android:layout_width="368dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -121,8 +121,8 @@
 
     <EditText
         android:id="@+id/et_name"
-        android:layout_width="153dp"
-        android:layout_height="26dp"
+        android:layout_width="160dp"
+        android:layout_height="28dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="48dp"
         android:background="@null"
@@ -136,14 +136,14 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="20dp"
         android:maxWidth="64dp"
         android:maxHeight="64dp"
         android:minWidth="64dp"
         android:minHeight="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_edit"
-        tools:srcCompat="@drawable/icon1" />
+        app:srcCompat="@drawable/icon1" />
 
     <ImageView
         android:id="@+id/imageView_icon2"
@@ -156,7 +156,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_icon1"
         app:layout_constraintTop_toTopOf="@+id/imageView_icon1"
-        tools:srcCompat="@drawable/icon2" />
+        app:srcCompat="@drawable/icon2" />
 
     <ImageView
         android:id="@+id/imageView_icon3"
@@ -169,7 +169,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_icon2"
         app:layout_constraintTop_toTopOf="@+id/imageView_icon2"
-        tools:srcCompat="@drawable/icon3" />
+        app:srcCompat="@drawable/icon3" />
 
     <ImageView
         android:id="@+id/imageView_icon4"
@@ -182,7 +182,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_icon3"
         app:layout_constraintTop_toTopOf="@+id/imageView_icon3"
-        tools:srcCompat="@drawable/icon4" />
+        app:srcCompat="@drawable/icon4" />
 
     <TextView
         android:id="@+id/textView7"
@@ -251,8 +251,8 @@
 
     <ImageView
         android:id="@+id/imageView_photo1"
-        android:layout_width="105dp"
-        android:layout_height="86dp"
+        android:layout_width="104dp"
+        android:layout_height="88dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:maxWidth="105dp"
@@ -262,49 +262,49 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:srcCompat="@drawable/photo1" />
+        app:srcCompat="@drawable/photo1" />
 
     <ImageView
         android:id="@+id/imageView_photo2"
-        android:layout_width="105dp"
+        android:layout_width="104dp"
         android:layout_height="86dp"
         android:layout_marginStart="8dp"
-        android:maxWidth="105dp"
-        android:maxHeight="85dp"
-        android:minWidth="105dp"
+        android:maxWidth="104dp"
+        android:maxHeight="86dp"
+        android:minWidth="104dp"
         android:minHeight="85dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@+id/imageView_photo1"
         app:layout_constraintTop_toTopOf="@+id/imageView_photo1"
-        tools:srcCompat="@drawable/photo2" />
+        app:srcCompat="@drawable/photo2" />
 
     <ImageView
         android:id="@+id/imageView_photo3"
-        android:layout_width="105dp"
+        android:layout_width="104dp"
         android:layout_height="86dp"
         android:layout_marginStart="8dp"
-        android:maxWidth="105dp"
-        android:maxHeight="85dp"
-        android:minWidth="105dp"
-        android:minHeight="85dp"
+        android:maxWidth="104dp"
+        android:maxHeight="84dp"
+        android:minWidth="104dp"
+        android:minHeight="84dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@+id/imageView_photo2"
         app:layout_constraintTop_toTopOf="@+id/imageView_photo2"
-        tools:srcCompat="@drawable/photo3" />
+        app:srcCompat="@drawable/photo3" />
 
     <ImageView
         android:id="@+id/imageView_photo4"
-        android:layout_width="105dp"
+        android:layout_width="104dp"
         android:layout_height="86dp"
         android:layout_marginTop="8dp"
-        android:maxWidth="105dp"
-        android:maxHeight="85dp"
-        android:minWidth="105dp"
-        android:minHeight="85dp"
+        android:maxWidth="104dp"
+        android:maxHeight="84dp"
+        android:minWidth="104dp"
+        android:minHeight="84dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="@+id/imageView_photo1"
         app:layout_constraintTop_toBottomOf="@+id/imageView_photo1"
-        tools:srcCompat="@drawable/photo4" />
+        app:srcCompat="@drawable/photo4" />
 
     <ImageView
         android:id="@+id/imageView_addIcon1"
@@ -318,5 +318,5 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_icon1"
-        tools:srcCompat="@drawable/addicon1" />
+        app:srcCompat="@drawable/addicon1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

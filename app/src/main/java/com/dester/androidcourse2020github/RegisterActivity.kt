@@ -18,7 +18,6 @@ class RegisterActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceType")
     fun init() {
-        iv_register_logo.setImageResource(R.raw.logo)
         btn_enter.setOnClickListener {
             val name : String = ti_name.editText?.text.toString()
             val surname : String = ti_surname.editText?.text.toString()

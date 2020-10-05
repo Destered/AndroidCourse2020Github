@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
 
     fun init(){
-        initImage()
         initExtras()
         et_name.visibility = View.INVISIBLE
         et_name.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
