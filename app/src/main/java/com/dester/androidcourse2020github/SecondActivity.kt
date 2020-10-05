@@ -9,7 +9,8 @@ import kotlinx.android.synthetic.main.activity_second.*
 
 
 class SecondActivity : AppCompatActivity() {
-    val DATA_KEY = "DATA"
+/* Немного не так было понято задание
+   {val DATA_KEY = "DATA"
     val ACCESS_MESSAGE = "ACCESS_MESSAGE"
     lateinit var id : String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,5 +69,6 @@ class SecondActivity : AppCompatActivity() {
         setResult(RESULT_OK, data)
         finish()
     }
+    }*/
 
 }

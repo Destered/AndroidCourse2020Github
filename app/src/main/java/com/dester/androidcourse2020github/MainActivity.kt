@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val REQUEST_DATA_TYPE = 1
+   /*  {Немного не так понято задание было
+   private val REQUEST_DATA_TYPE = 1
     val DATA_KEY = "DATA"
     val ACCESS_MESSAGE = "ACCESS_MESSAGE"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,5 +37,5 @@ class MainActivity : AppCompatActivity() {
         }else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
+    }}*/
 }
