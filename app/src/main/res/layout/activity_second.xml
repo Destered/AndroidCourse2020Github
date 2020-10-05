@@ -6,93 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".SecondActivity">
 
-    <TextView
-        android:id="@+id/tv_objectname"
-        android:layout_width="194dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="120dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_cancle"
-        android:layout_width="240dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="16dp"
-        android:text="Отмена"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Switch
-        android:id="@+id/sw_accses"
-        android:layout_width="253dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="140dp"
-        android:text="Доступен для исследования"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="112dp"
-        android:text="Класс объекта"
+        android:id="@+id/tv_sendget"
+        android:layout_width="356dp"
+        android:layout_height="640dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="176dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Switch
-        android:id="@+id/sw_accident"
-        android:layout_width="213dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="140dp"
-        android:text="Наличие инцидентов"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
-
-    <RadioGroup
-        android:id="@+id/rg_radiogroup"
-        android:layout_width="240dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/rb_easy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Безопасный" />
-
-        <RadioButton
-            android:id="@+id/rb_medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Евклид" />
-
-        <RadioButton
-            android:id="@+id/rb_hard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Кетер" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/btn_send"
-        android:layout_width="239dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="276dp"
-        android:text="Отправить"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_accses" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
