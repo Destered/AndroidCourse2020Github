@@ -1,4 +1,4 @@
-*.iml
+
 .gradle
 /local.properties
 /.idea/caches
@@ -36,7 +36,4 @@ build/**
 # User-specific configurations
 /.idea/
 *.iml
-*.ipr
-*.iws
-classes/**
-target/**
+
