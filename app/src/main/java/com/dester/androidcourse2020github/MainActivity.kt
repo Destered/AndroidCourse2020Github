@@ -59,22 +59,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    @SuppressLint("ResourceType")
-    fun initImage(){
-        imageView_avatar.setImageResource(R.raw.avatar)
-        imageView_photo1.setImageResource(R.raw.photo1)
-        imageView_photo2.setImageResource(R.raw.photo2)
-        imageView_photo3.setImageResource(R.raw.photo3)
-        imageView_photo4.setImageResource(R.raw.photo4)
-        imageView_icon1.setImageResource(R.raw.icon1)
-        imageView_icon2.setImageResource(R.raw.icon2)
-        imageView_icon3.setImageResource(R.raw.icon3)
-        imageView_icon4.setImageResource(R.raw.icon4)
-        imageView_addIcon1.setImageResource(R.raw.addicon1)
-        imageView_addIcon2.setImageResource(R.raw.addicon2)
-        imageView_addIcon3.setImageResource(R.raw.addicon3)
-        imageView_addIcon4.setImageResource(R.raw.addicon4)
-    }
 
     @SuppressLint("SetTextI18n")
     fun initExtras(){

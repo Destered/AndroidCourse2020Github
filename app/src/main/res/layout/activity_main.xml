@@ -19,7 +19,7 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addIcon3"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/addicon4" />
 
     <ImageView
         android:id="@+id/imageView_addIcon2"
@@ -33,7 +33,7 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addIcon1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/addicon2" />
 
     <ImageView
         android:id="@+id/imageView_addIcon3"
@@ -47,17 +47,17 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_addIcon2"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/addicon3" />
 
     <ImageView
         android:id="@+id/imageView_avatar"
-        android:layout_width="83dp"
-        android:layout_height="81dp"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/avatar" />
 
     <TextView
         android:id="@+id/textView"
@@ -143,7 +143,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_edit"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/icon1" />
 
     <ImageView
         android:id="@+id/imageView_icon2"
@@ -156,7 +156,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_icon1"
         app:layout_constraintTop_toTopOf="@+id/imageView_icon1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/icon2" />
 
     <ImageView
         android:id="@+id/imageView_icon3"
@@ -169,7 +169,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_icon2"
         app:layout_constraintTop_toTopOf="@+id/imageView_icon2"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/icon3" />
 
     <ImageView
         android:id="@+id/imageView_icon4"
@@ -182,7 +182,7 @@
         android:minHeight="64dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_icon3"
         app:layout_constraintTop_toTopOf="@+id/imageView_icon3"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/icon4" />
 
     <TextView
         android:id="@+id/textView7"
@@ -262,7 +262,7 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/photo1" />
 
     <ImageView
         android:id="@+id/imageView_photo2"
@@ -276,7 +276,7 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@+id/imageView_photo1"
         app:layout_constraintTop_toTopOf="@+id/imageView_photo1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/photo2" />
 
     <ImageView
         android:id="@+id/imageView_photo3"
@@ -290,7 +290,7 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toEndOf="@+id/imageView_photo2"
         app:layout_constraintTop_toTopOf="@+id/imageView_photo2"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/photo3" />
 
     <ImageView
         android:id="@+id/imageView_photo4"
@@ -304,7 +304,7 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="@+id/imageView_photo1"
         app:layout_constraintTop_toBottomOf="@+id/imageView_photo1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/photo4" />
 
     <ImageView
         android:id="@+id/imageView_addIcon1"
@@ -318,5 +318,5 @@
         android:minHeight="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_icon1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/addicon1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
