@@ -20,34 +20,34 @@ class MainActivity : AppCompatActivity() {
         iv_btn1.setOnClickListener {
             changeIcon(1)
             fm.beginTransaction().replace(R.id.fragment_container, ProfileFragment())
-                .setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+                .setCustomAnimations(R.anim.frag_add, R.anim.frag_remove)
                 .commit()
 
         }
         iv_btn2.setOnClickListener {
             changeIcon(2)
             fm.beginTransaction().replace(R.id.fragment_container, EnergyFragment())
-                .setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+                .setCustomAnimations(R.anim.frag_add, R.anim.frag_remove)
                 .commit()
 
         }
         iv_btn3.setOnClickListener {
     changeIcon(3)
             fm.beginTransaction().replace(R.id.fragment_container, MapFragment())
-                .setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+                .setCustomAnimations(R.anim.frag_add, R.anim.frag_remove)
                 .commit()
         }
         iv_btn4.setOnClickListener {
 changeIcon(4)
 
             fm.beginTransaction().replace(R.id.fragment_container, InfinityFragment())
-                .setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+                .setCustomAnimations(R.anim.frag_add, R.anim.frag_remove)
                 .commit()
         }
         iv_btn5.setOnClickListener {
             changeIcon(5)
             fm.beginTransaction().replace(R.id.fragment_container, MusicFragment())
-                .setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+                .setCustomAnimations(R.anim.frag_add, R.anim.frag_remove)
                 .commit()
         }
 
