@@ -17,37 +17,33 @@ class GameOldAdapter(
 ) : RecyclerView.Adapter<GameHolder>(), ItemTouchHelperAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameHolder {
-       return GameHolder.create(parent, itemClick)
+        return GameHolder.create(parent, itemClick)
     }
-
-
 
 
     override fun onBindViewHolder(holder: GameHolder, position: Int) {
         holder.delete?.setOnClickListener(View.OnClickListener() {
             removeItem(position)
         })
-       return holder.bind(list[position])
+        return holder.bind(list[position])
     }
 
     fun removeItem(position: Int) {
         var newList = list.toList()
-        if(newList.size >1){
+        if (newList.size > 1) {
             newList = newList as ArrayList<Game>
             newList.removeAt(position)
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, newList.size)
-        }else
+        } else
             newList = ArrayList<Game>()
         updateDataSource(newList)
     }
 
-    fun clearList(){
-       val newList = ArrayList<Game>()
+    fun clearList() {
+        val newList = ArrayList<Game>()
         updateDataSource(newList)
     }
-
-
 
 
     override fun onBindViewHolder(holder: GameHolder, position: Int, payloads: MutableList<Any>) {
@@ -60,22 +56,20 @@ class GameOldAdapter(
         }
     }
 
-    fun addItem(game:Game,position: Int){
-        var newList:ArrayList<Game>
-        if(list.size == 1){
+    fun addItem(game: Game, position: Int) {
+        var newList: ArrayList<Game>
+        if (list.size == 1) {
             newList = ArrayList()
             newList.add(list[0])
-        }
-        else{
+        } else {
             newList = list.toList() as ArrayList
         }
-        if(position >= newList.size){
+        if (position >= newList.size) {
             newList.add(game)
-        } else if(position <= 0){
-            newList.add(0,game)
-        }
-        else{
-            newList.add(position-1,game)
+        } else if (position <= 0) {
+            newList.add(0, game)
+        } else {
+            newList.add(position - 1, game)
         }
         updateDataSource(newList)
     }
@@ -104,10 +98,9 @@ class GameOldAdapter(
     }
 
     override fun onItemDismiss(position: Int) {
-        if(position == 0 && list.size == 1){
+        if (position == 0 && list.size == 1) {
             clearList()
-        }
-        else {
+        } else {
             removeItem(position)
         }
     }

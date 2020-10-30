@@ -29,13 +29,13 @@ public class GameListDiffCallback(
         val oldGame = mOldList.get(oldItemPosition)
         val newGame = mNewList.get(newItemPosition)
         val diffBundle = Bundle()
-        if(oldGame.name != newGame.name){
-            diffBundle.putString(Game.NAME_KEY,newGame.name)
+        if (oldGame.name != newGame.name) {
+            diffBundle.putString(Game.NAME_KEY, newGame.name)
         }
-        if(oldGame.about != newGame.about){
-            diffBundle.putString(Game.ABOUT_KEY,newGame.about)
+        if (oldGame.about != newGame.about) {
+            diffBundle.putString(Game.ABOUT_KEY, newGame.about)
         }
-        if(diffBundle.size() == 0) return null
+        if (diffBundle.size() == 0) return null
         return diffBundle
     }
 }

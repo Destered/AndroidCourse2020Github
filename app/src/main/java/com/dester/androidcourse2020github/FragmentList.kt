@@ -1,10 +1,7 @@
 package com.dester.androidcourse2020github
 
 
-import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,11 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itis.template.GameOldAdapter
-import kotlinx.android.synthetic.main.alert_dialog.*
 
 
-class FragmentList: Fragment(){
-    lateinit var adapter:GameOldAdapter
+class FragmentList : Fragment() {
+    lateinit var adapter: GameOldAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -30,10 +26,10 @@ class FragmentList: Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         val recycle = view.findViewById<RecyclerView>(R.id.rv_game)
-         adapter = GameOldAdapter(GameRepository.getGames())
+        adapter = GameOldAdapter(GameRepository.getGames())
         {
             Toast.makeText(context, "hi $it", Toast.LENGTH_SHORT).show()
         }
@@ -47,22 +43,21 @@ class FragmentList: Fragment(){
         val fab = view.findViewById<FloatingActionButton>(R.id.fab_add)
         fab.setOnClickListener {
             val dialogFragment = AddDialogFragment()
-            dialogFragment.setTargetFragment(this,42)
-            dialogFragment.show(fragmentManager!!,"dialog")
+            dialogFragment.setTargetFragment(this, 42)
+            dialogFragment.show(fragmentManager!!, "dialog")
         }
-
         return view
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == 42){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 42) {
+            if (resultCode == RESULT_OK) {
                 val title = data?.getStringExtra("title") ?: "0"
-                val author = data?.getStringExtra("author") ?: "0"
-                val game = Game(title,author)
-                Toast.makeText(context,"$game",Toast.LENGTH_SHORT).show()
-                val position = data?.getIntExtra("position",1) ?:1
-                adapter.addItem(game,position)
+                val about = data?.getStringExtra("about") ?: "0"
+                val game = Game(title, about)
+                Toast.makeText(context, "$game", Toast.LENGTH_SHORT).show()
+                val position = data?.getIntExtra("position", Integer.MAX_VALUE) ?: Integer.MAX_VALUE
+                adapter.addItem(game, position)
             }
         }
     }
