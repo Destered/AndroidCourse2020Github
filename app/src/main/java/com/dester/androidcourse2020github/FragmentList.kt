@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.itis.template.GameOldAdapter
+import com.itis.template.GameAdapter
 
 
 class FragmentList : Fragment() {
-    lateinit var adapter: GameOldAdapter
+    lateinit var adapter: GameAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,7 +29,7 @@ class FragmentList : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         val recycle = view.findViewById<RecyclerView>(R.id.rv_game)
-        adapter = GameOldAdapter(GameRepository.getGames())
+        adapter = GameAdapter(GameRepository.getGames())
         {
             Toast.makeText(context, "hi $it", Toast.LENGTH_SHORT).show()
         }

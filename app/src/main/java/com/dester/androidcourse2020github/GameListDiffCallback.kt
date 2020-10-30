@@ -10,11 +10,11 @@ public class GameListDiffCallback(
 
 
     override fun getOldListSize(): Int {
-        return mOldList?.size ?: 0
+        return mOldList.size ?: 0
     }
 
     override fun getNewListSize(): Int {
-        return mNewList?.size ?: 0
+        return mNewList.size ?: 0
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {

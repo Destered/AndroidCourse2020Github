@@ -3,13 +3,12 @@ package com.dester.androidcourse2020github
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import com.itis.template.GameOldAdapter
+import com.itis.template.GameAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var adapter:GameOldAdapter? = null
+    private var adapter:GameAdapter? = null
     lateinit var fm: FragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
