@@ -3,8 +3,8 @@ package com.dester.androidcourse2020github
 object CardRepository {
 
     fun getCard():ArrayList<Card> = arrayListOf(
-        Card("Man",R.drawable.pic1,"Just1", arrayListOf(R.drawable.pic1,R.drawable.pic3)),
-        Card("Man2",R.drawable.pic2,"Just2", arrayListOf(R.drawable.pic2,R.drawable.pic1)),
-    Card("Man3",R.drawable.pic3,"Just3", arrayListOf(R.drawable.pic3,R.drawable.pic1))
+        Card("Довакин",R.drawable.dovakhin_avatar,"Отправился на отдых, а меня назвали нарушителем границы, обидно(", arrayListOf(R.drawable.skyrim1,R.drawable.skyrim2,R.drawable.skyrim3)),
+        Card("Геральт",R.drawable.geralt_avatar,"Ненавижу блин порталы", arrayListOf(R.drawable.witcher)),
+        Card("Шепард",R.drawable.shepard_avatar,"Мои орлы и топовые люди!", arrayListOf(R.drawable.cod1,R.drawable.cod2))
     )
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ class FragmentList : Fragment() {
         }
         recycle.layoutManager = LinearLayoutManager(context)
         recycle.adapter = adapter
+        recycle.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
         val callback: ItemTouchHelper.Callback = ItemTouchHelperCallback(adapter)
         val touchHelper = ItemTouchHelper(callback)
@@ -55,7 +57,6 @@ class FragmentList : Fragment() {
                 val title = data?.getStringExtra("title") ?: "0"
                 val about = data?.getStringExtra("about") ?: "0"
                 val game = Game(title, about)
-                Toast.makeText(context, "$game", Toast.LENGTH_SHORT).show()
                 val position = data?.getIntExtra("position", Integer.MAX_VALUE) ?: Integer.MAX_VALUE
                 adapter.addItem(game, position)
             }
