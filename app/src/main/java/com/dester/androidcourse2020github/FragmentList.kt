@@ -58,10 +58,8 @@ class FragmentList: Fragment(){
         if(requestCode == 42){
             if(resultCode == RESULT_OK){
                 val title = data?.getStringExtra("title") ?: "0"
-                val about = data?.getStringExtra("about") ?: "0"
                 val author = data?.getStringExtra("author") ?: "0"
-                val id = data?.getIntExtra("id",0) ?: 0
-                val game = Game(title,author,about,4.5F,id)
+                val game = Game(title,author)
                 Toast.makeText(context,"$game",Toast.LENGTH_SHORT).show()
                 val position = data?.getIntExtra("position",1) ?:1
                 adapter.addItem(game,position)
@@ -70,6 +68,5 @@ class FragmentList: Fragment(){
     }
 
 
-    //TODO: Добавить удаление по клику на крестик
     //TODO: Фрагмент с карточками не готов!!!
 }

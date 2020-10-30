@@ -18,7 +18,7 @@ public class GameListDiffCallback(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return (mNewList[newItemPosition].name == mOldList[oldItemPosition].name || mNewList[newItemPosition].id == mOldList[oldItemPosition].id)
+        return (mNewList[newItemPosition].about == mOldList[oldItemPosition].about)
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -34,9 +34,6 @@ public class GameListDiffCallback(
         }
         if(oldGame.about != newGame.about){
             diffBundle.putString(Game.ABOUT_KEY,newGame.about)
-        }
-        if(oldGame.id != newGame.id){
-            diffBundle.putInt(Game.ID_KEY,newGame.id)
         }
         if(diffBundle.size() == 0) return null
         return diffBundle

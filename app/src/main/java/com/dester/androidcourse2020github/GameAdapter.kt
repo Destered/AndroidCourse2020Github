@@ -11,7 +11,7 @@ class GameAdapter(
     private val itemClickLambda: (Game) -> Unit
 ) : ListAdapter<Game, GameHolder>(object : DiffUtil.ItemCallback<Game>() {
 
-    override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean = oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean = oldItem.name == newItem.name
 
     override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean = oldItem == newItem
 }) {

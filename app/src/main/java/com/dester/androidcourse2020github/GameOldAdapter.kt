@@ -1,6 +1,7 @@
 package com.itis.template
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -23,14 +24,19 @@ class GameOldAdapter(
 
 
     override fun onBindViewHolder(holder: GameHolder, position: Int) {
+        holder.delete?.setOnClickListener(View.OnClickListener() {
+            removeItem(position)
+        })
        return holder.bind(list[position])
     }
 
     fun removeItem(position: Int) {
         var newList = list.toList()
-        if(newList.isNotEmpty()){
+        if(newList.size >1){
             newList = newList as ArrayList<Game>
             newList.removeAt(position)
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, newList.size)
         }else
             newList = ArrayList<Game>()
         updateDataSource(newList)
@@ -55,12 +61,21 @@ class GameOldAdapter(
     }
 
     fun addItem(game:Game,position: Int){
-        val newList = list.toList() as ArrayList
-        if(position >= newList.size){
-            newList.add(game)
+        var newList:ArrayList<Game>
+        if(list.size == 1){
+            newList = ArrayList()
+            newList.add(list[0])
         }
         else{
-            newList.add(position,game)
+            newList = list.toList() as ArrayList
+        }
+        if(position >= newList.size){
+            newList.add(game)
+        } else if(position <= 0){
+            newList.add(0,game)
+        }
+        else{
+            newList.add(position-1,game)
         }
         updateDataSource(newList)
     }
@@ -69,9 +84,8 @@ class GameOldAdapter(
     override fun getItemCount(): Int = list.size
 
     fun updateDataSource(newList: List<Game>) {
-//        notifyItemChanged(1, Bundle().putString("ARG_NAME", "Test"))
         val callback = GameListDiffCallback(list, newList)
-        val result = DiffUtil.calculateDiff(callback, true)
+        val result = DiffUtil.calculateDiff(callback, false)
         result.dispatchUpdatesTo(this)
         list = newList.toList()
     }

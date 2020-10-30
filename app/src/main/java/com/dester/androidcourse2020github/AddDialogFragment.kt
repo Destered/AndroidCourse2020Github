@@ -25,14 +25,10 @@ class AddDialogFragment:DialogFragment() {
         btn_ok.setOnClickListener {
             val title = et_title.text.toString()
             val about = et_about.text.toString()
-            val author = et_author.text.toString()
-            val id = Integer.parseInt(et_id.text.toString())
             val position = Integer.parseInt(et_position.text.toString())
             val intent = Intent()
             intent.putExtra("title",title)
             intent.putExtra("about",about)
-            intent.putExtra("author",author)
-            intent.putExtra("id",id)
             intent.putExtra("position",position)
             /*parentFragment?.onActivityResult(9,RESULT_OK,activity?.intent)*/
             targetFragment?.onActivityResult(42,RESULT_OK,intent)

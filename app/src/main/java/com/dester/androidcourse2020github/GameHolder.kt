@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.dester.androidcourse2020github.Game
 import com.dester.androidcourse2020github.R
@@ -16,30 +17,25 @@ class GameHolder(
     private val itemClick: (Game) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+    var delete: ImageView? = null
     private var game: Game? = null
 
     init {
         itemView.setOnClickListener {
                 game?.also(itemClick)
         }
+        delete = itemView.findViewById(R.id.iv_delete);
     }
 
     fun bind(game: Game) {
         this.game = game
         with(game) {
             tv_name.text = name
-            tv_about.text = author
-            tv_id.text = id.toString()
+            tv_about.text = about
         }
     }
 
     fun updateFields(bundle: Bundle) {
-        if (bundle.containsKey(Game.ID_KEY)) {
-            bundle.getString(Game.ID_KEY).also {
-                Log.e("HOLDER", "ID $it")
-                tv_id.text = it
-            }
-        }
         if (bundle.containsKey(Game.NAME_KEY)) {
             bundle.getString(Game.NAME_KEY).also {
                 Log.e("HOLDER", "NAME $it")
