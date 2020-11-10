@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github
+package com.dester.androidcourse2020github.songRecycle
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
