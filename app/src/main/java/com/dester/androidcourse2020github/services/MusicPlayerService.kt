@@ -1,6 +1,8 @@
 package com.dester.androidcourse2020github.services
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -19,13 +21,17 @@ import com.dester.androidcourse2020github.services.MusicPlayerService.LocalBinde
 class MusicPlayerService : Service() {
     var activity:Callbacks? = null
     val mBinder: IBinder = LocalBinder()
+    lateinit var notificationManager:NotificationManager
+    lateinit var curSong:Song
     private lateinit var mp: MediaPlayer
-    private var position:Int = 0
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.d("Dest/Lifecycle/MusicPlayerService", "onStartCommand before intent")
         if (intent != null) {
-
-            mp = MediaPlayer.create(this, (intent.getSerializableExtra("song") as Song).audio)
+            Log.d("Dest/Lifecycle/MusicPlayerService", "onStartCommand with intent")
+            curSong = intent.getSerializableExtra("song") as Song
+            mp = MediaPlayer.create(this, curSong.audio)
             mp.start()
             mp.setOnCompletionListener {
                 Log.d("Dest/Broadcast/MusicPlayerService", "Send broadcast: ${MusicNotification.ACTION_NEXT}")
@@ -37,7 +43,16 @@ class MusicPlayerService : Service() {
 
 
     override fun onDestroy() {
+        Log.d("Dest/Lifecycle/MusicPlayerService", "onDestroy")
         super.onDestroy()
+        val channel = NotificationChannel(
+            MusicNotification.CHANNEL_ID,
+            "MNC",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
+        notificationManager.cancelAll()
         mp.stop()
     }
 
@@ -48,6 +63,7 @@ class MusicPlayerService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder {
+        Log.d("Dest/Lifecycle/MusicPlayerService", "onBind")
         return mBinder
     }
 
@@ -58,6 +74,7 @@ class MusicPlayerService : Service() {
     fun setSong(song:Song){
         mp.reset()
         mp = MediaPlayer.create(this,song.audio)
+        curSong = song
         mp.setOnCompletionListener {
             Log.d("Dest/Broadcast/MusicPlayerService", "Send broadcast: ${MusicNotification.ACTION_NEXT}")
             applicationContext.sendBroadcast(Intent("TRACKS_TRACK").putExtra("actioname",MusicNotification.ACTION_NEXT))
@@ -65,9 +82,6 @@ class MusicPlayerService : Service() {
         mp.start()
     }
 
-    fun setPosition(pos:Int){
-        position = pos
-    }
     fun songState(){
         if(mp.isPlaying){
             mp.pause()
@@ -76,8 +90,19 @@ class MusicPlayerService : Service() {
         }
     }
 
-    fun getPosition():Int{
-        return position
+    override fun stopService(name: Intent?): Boolean {
+        Log.d("Dest/Lifecycle/MusicPlayerService", "stopService")
+        return super.stopService(name)
+    }
+
+    override fun onCreate() {
+        Log.d("Dest/Lifecycle/MusicPlayerService", "CreateService")
+        super.onCreate()
+    }
+
+    override fun onRebind(intent: Intent?) {
+        Log.d("Dest/Lifecycle/MusicPlayerService", "reBind")
+        super.onRebind(intent)
     }
 
     interface Callbacks {

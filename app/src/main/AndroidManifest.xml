@@ -20,7 +20,8 @@
         <service
             android:name=".services.MusicPlayerService"
             android:foregroundServiceType="mediaPlayback" />
-        <activity android:name=".activity.MusicDetailed" />
+        <activity android:name=".activity.MusicDetailed"
+             android:launchMode="singleTop"/>
         <activity android:name=".activity.MusicMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

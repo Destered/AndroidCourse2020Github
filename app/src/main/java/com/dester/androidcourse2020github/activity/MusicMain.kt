@@ -25,9 +25,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MusicMain : AppCompatActivity(){
     private var adapter: SongAdapter? = null
-    lateinit var notificationManager:NotificationManager
-    var position:Int = 0
-    var isPlaying:Boolean = false
     lateinit var songList:List<Song>
 
 
