@@ -1,12 +1,7 @@
 package com.dester.androidcourse2020github.activity
 
 import android.annotation.SuppressLint
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -14,18 +9,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dester.androidcourse2020github.R
-import com.dester.androidcourse2020github.`interface`.Playable
 import com.dester.androidcourse2020github.model.Song
-import com.dester.androidcourse2020github.notification.MusicNotification
 import com.dester.androidcourse2020github.repository.SongRepository
-import com.dester.androidcourse2020github.services.OnClearRecentServices
 import com.dester.androidcourse2020github.songRecycle.SongAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MusicMain : AppCompatActivity(){
+class MusicMain : AppCompatActivity() {
     private var adapter: SongAdapter? = null
-    lateinit var songList:List<Song>
+    lateinit var songList: List<Song>
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -40,7 +32,7 @@ class MusicMain : AppCompatActivity(){
         ) {
             Log.d("Dest/MusicMain", "Created:$it")
             val intent = Intent(this, MusicDetailed::class.java)
-            intent.putExtra("position", SongRepository.getPositionByName(it.author,it.title))
+            intent.putExtra("position", SongRepository.getPositionByName(it.author, it.title))
             startActivity(intent)
         }
         val dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)

@@ -4,25 +4,20 @@ import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
-import android.os.Handler
 import android.os.IBinder
 import android.util.Log
-import com.dester.androidcourse2020github.activity.MusicDetailed
 import com.dester.androidcourse2020github.model.Song
 import com.dester.androidcourse2020github.notification.MusicNotification
-import com.dester.androidcourse2020github.services.MusicPlayerService.LocalBinder
 
 
 class MusicPlayerService : Service() {
-    var activity:Callbacks? = null
+    var activity: Callbacks? = null
     val mBinder: IBinder = LocalBinder()
-    lateinit var notificationManager:NotificationManager
-    lateinit var curSong:Song
+    lateinit var notificationManager: NotificationManager
+    lateinit var curSong: Song
     private lateinit var mp: MediaPlayer
 
 
@@ -34,8 +29,16 @@ class MusicPlayerService : Service() {
             mp = MediaPlayer.create(this, curSong.audio)
             mp.start()
             mp.setOnCompletionListener {
-                Log.d("Dest/Broadcast/MusicPlayerService", "Send broadcast: ${MusicNotification.ACTION_NEXT}")
-                applicationContext.sendBroadcast(Intent("TRACKS_TRACK").putExtra("actioname",MusicNotification.ACTION_NEXT))
+                Log.d(
+                    "Dest/Broadcast/MusicPlayerService",
+                    "Send broadcast: ${MusicNotification.ACTION_NEXT}"
+                )
+                applicationContext.sendBroadcast(
+                    Intent("TRACKS_TRACK").putExtra(
+                        "actioname",
+                        MusicNotification.ACTION_NEXT
+                    )
+                )
             }
         }
         return START_STICKY
@@ -71,21 +74,29 @@ class MusicPlayerService : Service() {
         this.activity = activity as Callbacks
     }
 
-    fun setSong(song:Song){
+    fun setSong(song: Song) {
         mp.reset()
-        mp = MediaPlayer.create(this,song.audio)
+        mp = MediaPlayer.create(this, song.audio)
         curSong = song
         mp.setOnCompletionListener {
-            Log.d("Dest/Broadcast/MusicPlayerService", "Send broadcast: ${MusicNotification.ACTION_NEXT}")
-            applicationContext.sendBroadcast(Intent("TRACKS_TRACK").putExtra("actioname",MusicNotification.ACTION_NEXT))
+            Log.d(
+                "Dest/Broadcast/MusicPlayerService",
+                "Send broadcast: ${MusicNotification.ACTION_NEXT}"
+            )
+            applicationContext.sendBroadcast(
+                Intent("TRACKS_TRACK").putExtra(
+                    "actioname",
+                    MusicNotification.ACTION_NEXT
+                )
+            )
         }
         mp.start()
     }
 
-    fun songState(){
-        if(mp.isPlaying){
+    fun songState() {
+        if (mp.isPlaying) {
             mp.pause()
-        } else{
+        } else {
             mp.start()
         }
     }
@@ -106,7 +117,7 @@ class MusicPlayerService : Service() {
     }
 
     interface Callbacks {
-        fun updateSong(song:Song)
+        fun updateSong(song: Song)
         fun changeState()
     }
 

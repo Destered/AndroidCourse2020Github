@@ -61,7 +61,7 @@ final class MusicNotification {
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
             val pendingIntentOpen: PendingIntent?
-            val intentOpen = Intent(context, MusicDetailed::class.java).apply{
+            val intentOpen = Intent(context, MusicDetailed::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
             }
             intentOpen.putExtra("source", "notification")
@@ -69,7 +69,7 @@ final class MusicNotification {
             val stackBuilder = TaskStackBuilder.create(context)
             stackBuilder.addNextIntent(intentOpen)
             Log.d("Dest/Intent/MusicNotification", "intentOpenSong:$song")
-            pendingIntentOpen = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT)
+            pendingIntentOpen = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
             notification = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(song.title)

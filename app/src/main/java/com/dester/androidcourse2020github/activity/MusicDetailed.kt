@@ -14,15 +14,14 @@ import com.dester.androidcourse2020github.model.Song
 import com.dester.androidcourse2020github.notification.MusicNotification
 import com.dester.androidcourse2020github.repository.SongRepository
 import com.dester.androidcourse2020github.services.MusicPlayerService
-import com.dester.androidcourse2020github.services.OnClearRecentServices
 import kotlinx.android.synthetic.main.activity_music_detailed.*
 
 
-class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks {
-    private lateinit var musicService:MusicPlayerService
+class MusicDetailed : AppCompatActivity(), Playable, MusicPlayerService.Callbacks {
+    private lateinit var musicService: MusicPlayerService
     lateinit var notificationManager: NotificationManager
-    var position:Int = 0
-    var isPlaying:Boolean = true
+    var position: Int = 0
+    var isPlaying: Boolean = true
 
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d("Dest/MusicDetailed/Instance", "SaveInstance")
@@ -32,31 +31,32 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         val service = savedInstanceState["binder"]
         Log.d("Dest/MusicDetailed/Instance", "LoadInstance")
-        val binder :MusicPlayerService.LocalBinder = service as MusicPlayerService.LocalBinder
+        val binder: MusicPlayerService.LocalBinder = service as MusicPlayerService.LocalBinder
         musicService = binder.getServiceInstance()
         musicService.registerClient(this@MusicDetailed)
         super.onRestoreInstanceState(savedInstanceState)
     }
 
-    private val serviceConnection:ServiceConnection = object:ServiceConnection{
+    private val serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder :MusicPlayerService.LocalBinder = service as MusicPlayerService.LocalBinder
+            val binder: MusicPlayerService.LocalBinder = service as MusicPlayerService.LocalBinder
             musicService = binder.getServiceInstance()
             musicService.registerClient(this@MusicDetailed)
         }
+
         override fun onServiceDisconnected(name: ComponentName?) {
         }
     }
-    lateinit var songList:List<Song>
-    lateinit var song:Song
+    lateinit var songList: List<Song>
+    lateinit var song: Song
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music_detailed)
         iv_play.setOnClickListener {
-            if (isPlaying){
+            if (isPlaying) {
                 onTrackPause()
-            } else{
+            } else {
                 onTrackPlay()
             }
         }
@@ -79,13 +79,13 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
         super.onStart()
         val source = intent.getStringExtra("source")
         songList = SongRepository.getSong()
-        if(source == "notification"){
+        if (source == "notification") {
             song = intent.getSerializableExtra("song") as Song
             position = SongRepository.getPositionByName(song.author, song.title)
             Log.d("Dest/MusicDetailed/Lifecycle", "Open from notification: $song")
             val intentService = Intent(baseContext, MusicPlayerService::class.java)
             bindService(intentService, serviceConnection, Context.BIND_AUTO_CREATE)
-        }else {
+        } else {
             position = intent.getIntExtra("position", 0)
             song = songList[position]
             createChannel()
@@ -93,12 +93,12 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
         }
         initPage()
         val intentService = Intent(baseContext, MusicPlayerService::class.java)
-        if(!isMusicServiceRunning(MusicPlayerService::class.java)){
+        if (!isMusicServiceRunning(MusicPlayerService::class.java)) {
             Log.d("Dest/MusicDetailed/Lifecycle", "MusicService is not running")
             intentService.putExtra("song", song)
             startService(intentService)
             bindService(intentService, serviceConnection, Context.BIND_AUTO_CREATE)
-            startService(Intent(baseContext, OnClearRecentServices::class.java))
+/*            startService(Intent(baseContext, OnClearRecentServices::class.java))*/
             registerReceiver(broadcastReceiver, IntentFilter("TRACKS_TRACK"))
             MusicNotification.createNotification(
                 this, song
@@ -106,10 +106,9 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
         }
 
 
-
     }
 
-    fun createChannel(){
+    fun createChannel() {
         val channel = NotificationChannel(
             MusicNotification.CHANNEL_ID,
             "MNC",
@@ -118,14 +117,15 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
         notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(channel)
     }
-    val broadcastReceiver: BroadcastReceiver = object: BroadcastReceiver(){
+
+    val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d(
                 "Dest/Broadcast/MusicDetailed",
                 "Get Broadcast: ${intent?.getStringExtra("actioname")}"
             )
-            if(intent != null) {
-                when(intent.getStringExtra("actioname")) {
+            if (intent != null) {
+                when (intent.getStringExtra("actioname")) {
                     MusicNotification.ACTION_NEXT -> {
                         onTrackNext()
                     }
@@ -146,8 +146,8 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
 
     override fun onTrackPrevious() {
         position--
-        if(position < 0){
-            position = songList.size-1
+        if (position < 0) {
+            position = songList.size - 1
         }
         song = songList[position]
         initPage()
@@ -177,7 +177,7 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
 
     override fun onTrackNext() {
         position++
-        if(position >= songList.size){
+        if (position >= songList.size) {
             position = 0
         }
         song = songList[position]
@@ -194,7 +194,7 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
             Log.d("Dest/MusicDetailed/Lifecycle", "onDestroyBundle: $it")
         }
 
-        if(intent.getStringExtra("source") != "notification"){
+        if (intent.getStringExtra("source") != "notification") {
             Log.d("Dest/MusicDetailed/Lifecycle", "onDestroyTrue")
 /*            notificationManager.cancelAll()
             unbindService(serviceConnection)
@@ -215,15 +215,14 @@ class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks
         musicService.songState()
     }
 
-    private fun isMusicServiceRunning(serviceClass: Class<MusicPlayerService>):Boolean
-    {
+    private fun isMusicServiceRunning(serviceClass: Class<MusicPlayerService>): Boolean {
         Log.d("Dest/MusicDetailed/Lifecycle", "Check MusicService")
         val manager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
-         manager.getRunningServices(Integer.MAX_VALUE).forEach {
-        if (serviceClass.name == it.service.className) {
-            return true
+        manager.getRunningServices(Integer.MAX_VALUE).forEach {
+            if (serviceClass.name == it.service.className) {
+                return true
+            }
         }
-    }
         return false
     }
 
