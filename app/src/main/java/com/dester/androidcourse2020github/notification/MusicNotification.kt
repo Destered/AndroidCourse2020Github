@@ -1,6 +1,5 @@
 package com.dester.androidcourse2020github.notification
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.Context
@@ -8,7 +7,9 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompatExtras
 import androidx.core.app.NotificationManagerCompat
 import com.dester.androidcourse2020github.R
 import com.dester.androidcourse2020github.activity.MusicDetailed
@@ -22,7 +23,7 @@ final class MusicNotification {
         val ACTION_PREVIOUS: String = "previousaction"
         val ACTION_PLAY: String = "playaction"
         val ACTION_NEXT: String = "nextaction"
-        lateinit var notification: Notification
+        lateinit var notification: NotificationCompat.Builder
 
         fun createNotification(context: Context, song: Song) {
             val notificationManagerCompat: NotificationManagerCompat =
@@ -70,28 +71,33 @@ final class MusicNotification {
             stackBuilder.addNextIntent(intentOpen)
             Log.d("Dest/Intent/MusicNotification", "intentOpenSong:$song")
             pendingIntentOpen = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-
+            val notificationView:RemoteViews = RemoteViews(
+                context.packageName,
+                R.layout.notification_player
+            )
+            notificationView.setTextViewText(R.id.tv_notif_author,song.author)
+            notificationView.setTextViewText(R.id.tv_notif_title,song.title)
+            notificationView.setImageViewResource(R.id.iv_notif_prev,R.drawable.ic_previous)
+            notificationView.setOnClickPendingIntent(R.id.iv_notif_prev,pendingIntentPrevious)
+            notificationView.setImageViewResource(R.id.iv_notif_play,R.drawable.ic_play)
+            notificationView.setOnClickPendingIntent(R.id.iv_notif_prev,pendingIntentPlay)
+            notificationView.setImageViewResource(R.id.iv_notif_next,R.drawable.ic_next)
+            notificationView.setOnClickPendingIntent(R.id.iv_notif_prev,pendingIntentNext)
             notification = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(song.title)
                 .setContentText(song.author)
+                .setContent(notificationView)
                 .setOnlyAlertOnce(true)
-                .setLargeIcon(icon)
                 .setContentIntent(pendingIntentOpen)
-                .addAction(R.drawable.previous, "Previous", pendingIntentPrevious)
-                .addAction(R.drawable.play, "Play", pendingIntentPlay)
-                .addAction(R.drawable.nerv, "Next", pendingIntentNext)
-                .setStyle(
-                    androidx.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0, 1, 2)
-                        .setMediaSession(mediaSessionCompat.sessionToken)
-                )
                 .setSmallIcon(R.drawable.note)
-                .setShowWhen(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .build()
 
 
-            notificationManagerCompat.notify(1, notification)
+
+
+
+
+            notificationManagerCompat.notify(1, this.notification.build())
         }
     }
 }

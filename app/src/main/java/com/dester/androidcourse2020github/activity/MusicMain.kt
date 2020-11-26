@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dester.androidcourse2020github.R
 import com.dester.androidcourse2020github.model.Song
 import com.dester.androidcourse2020github.repository.SongRepository
+import com.dester.androidcourse2020github.services.MusicPlayerService
 import com.dester.androidcourse2020github.songRecycle.SongAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,6 +34,8 @@ class MusicMain : AppCompatActivity() {
             Log.d("Dest/MusicMain", "Created:$it")
             val intent = Intent(this, MusicDetailed::class.java)
             intent.putExtra("position", SongRepository.getPositionByName(it.author, it.title))
+            val intentService = Intent(baseContext, MusicPlayerService::class.java)
+            stopService(intentService)
             startActivity(intent)
         }
         val dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)
