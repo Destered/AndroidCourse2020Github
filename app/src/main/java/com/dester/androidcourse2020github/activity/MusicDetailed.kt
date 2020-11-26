@@ -1,94 +1,196 @@
 package com.dester.androidcourse2020github.activity
 
-import android.media.AudioManager
-import android.media.MediaPlayer
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.*
 import android.os.Bundle
+import android.os.IBinder
+import android.os.PersistableBundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.dester.androidcourse2020github.R
-import com.dester.androidcourse2020github.model.Pair
+import com.dester.androidcourse2020github.`interface`.Playable
 import com.dester.androidcourse2020github.model.Song
+import com.dester.androidcourse2020github.notification.MusicNotification
 import com.dester.androidcourse2020github.repository.SongRepository
+import com.dester.androidcourse2020github.services.MusicPlayerService
+import com.dester.androidcourse2020github.services.OnClearRecentServices
 import kotlinx.android.synthetic.main.activity_music_detailed.*
-import kotlin.properties.Delegates
 
 
-class MusicDetailed : AppCompatActivity() {
-    lateinit var songTitle: String
-    lateinit var songAuthor: String
-    var mediaPlayer: MediaPlayer? = null
-    var am: AudioManager? = null
+class MusicDetailed : AppCompatActivity(), Playable,MusicPlayerService.Callbacks {
+    private lateinit var musicService:MusicPlayerService
+    lateinit var notificationManager: NotificationManager
+    var position:Int = 0
+    var isPlaying:Boolean = true
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        Log.d("Dest/MusicDetailed/Instance","SaveInstance")
+        outState.putBinder("binder",musicService.mBinder)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        val service = savedInstanceState["binder"]
+        Log.d("Dest/MusicDetailed/Instance","LoadInstance")
+        val binder :MusicPlayerService.LocalBinder = service as MusicPlayerService.LocalBinder
+        musicService = binder.getServiceInstance()
+        musicService.registerClient(this@MusicDetailed)
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    private val serviceConnection:ServiceConnection = object:ServiceConnection{
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder :MusicPlayerService.LocalBinder = service as MusicPlayerService.LocalBinder
+            musicService = binder.getServiceInstance()
+            musicService.registerClient(this@MusicDetailed)
+        }
+        override fun onServiceDisconnected(name: ComponentName?) {
+        }
+    }
+    lateinit var songList:List<Song>
     lateinit var song:Song
-    var curPos by Delegates.notNull<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music_detailed)
-        songTitle = intent.getStringExtra("songT") ?:"default"
-        songAuthor = intent.getStringExtra("songA") ?:"default"
-
-        pageInit()
-        btnInit()
-    }
-
-    private fun btnInit() {
-        btn_play.setOnClickListener{
-            if(mediaPlayer != null){
-                if(mediaPlayer!!.isPlaying){
-                    mediaPlayer?.pause()
-                    btn_play.text =">"
-                } else{
-                    mediaPlayer?.start()
-                    btn_play.text = "||"
-                }
+        startOrResume()
+        iv_play.setOnClickListener {
+            if (isPlaying){
+                onTrackPause()
+            } else{
+                onTrackPlay()
             }
         }
-
-        btn_next.setOnClickListener {
-            curPos++
-            setSong()
+        iv_next.setOnClickListener {
+            onTrackNext()
+        }
+        iv_previous.setOnClickListener {
+            onTrackPrevious()
         }
 
-        btn_previous.setOnClickListener {
-            curPos--
-            setSong()
+    }
+
+    private fun startOrResume() {
+        var checkPos = intent.getIntExtra("position",-1)
+        if(checkPos != -1){
+            position = checkPos
+        } else{
+            position = 3
         }
     }
 
-    private fun releaseMP() {
-        mediaPlayer?.release()
-    }
-
-    private fun createPlayer(){
-        releaseMP()
-        mediaPlayer = MediaPlayer.create(this, song.audio)
-        mediaPlayer?.start()
-        btn_play.text = "||"
-    }
-
-    private fun pageInit() {
-        val pair = SongRepository.getSongByPosition(SongRepository.getPositionByName(songAuthor,songTitle))
-        song = pair.song
-        curPos = pair.pos
-        pageUpdate()
-        am = getSystemService(AUDIO_SERVICE) as AudioManager
-        createPlayer()
-    }
-
-    private fun setSong(){
-        val pair:Pair = SongRepository.getSongByPosition(curPos)
-        song = pair.song
-        curPos = pair.pos
-        pageUpdate()
-        createPlayer()
-    }
-
-    private fun pageUpdate(){
+    private fun initPage() {
         tv_author.text = song.author
-        tv_.text = song.title
+        tv_title.text = song.title
         iv_poster.setImageResource(song.poster)
     }
 
-    override fun onBackPressed() {
-        releaseMP()
-        super.onBackPressed()
+    override fun onStart() {
+        super.onStart()
+        songList = SongRepository.getSong()
+        song = songList[position]
+        initPage()
+        createChannel()
+        startService(Intent(baseContext, OnClearRecentServices::class.java))
+        registerReceiver(broadcastReceiver, IntentFilter("TRACKS_TRACK"))
+        MusicNotification.createNotification(
+            this, song
+        )
+        val intentService = Intent(baseContext,MusicPlayerService::class.java)
+        intentService.putExtra("song",song)
+        startService(intentService)
+        bindService(intentService,serviceConnection,Context.BIND_AUTO_CREATE)
     }
+
+    fun createChannel(){
+        val channel = NotificationChannel(MusicNotification.CHANNEL_ID,"MNC",NotificationManager.IMPORTANCE_DEFAULT)
+        notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
+    }
+    val broadcastReceiver: BroadcastReceiver = object: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d("Dest/Broadcast/MusicDetailed","Get Broadcast: ${intent?.getStringExtra("actioname")}")
+            if(intent != null) {
+                when(intent.getStringExtra("actioname")) {
+                    MusicNotification.ACTION_NEXT -> {
+                        onTrackNext()
+                    }
+                    MusicNotification.ACTION_PLAY -> {
+                        if(isPlaying){
+                            onTrackPause()
+                        }else onTrackPlay()
+
+                    }
+
+                    MusicNotification.ACTION_PREVIOUS -> {
+                        onTrackPrevious()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onTrackPrevious() {
+        position--
+        if(position < 0){
+            position = songList.size-1
+        }
+        song = songList[position]
+        initPage()
+        updateSong(song)
+        MusicNotification.createNotification(
+            this, song
+        )
+    }
+
+    override fun onTrackPlay() {
+        MusicNotification.createNotification(
+            this, songList[position]
+        )
+        changeState()
+        isPlaying = true
+        iv_play.setImageResource(R.drawable.ic_stop)
+    }
+
+    override fun onTrackPause() {
+        MusicNotification.createNotification(
+            this, songList[position]
+        )
+        changeState()
+        isPlaying = false
+        iv_play.setImageResource(R.drawable.ic_play)
+    }
+
+    override fun onTrackNext() {
+        position++
+        if(position >= songList.size){
+            position = 0
+        }
+        song = songList[position]
+        initPage()
+        updateSong(song)
+        MusicNotification.createNotification(
+            this, song
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notificationManager.cancelAll()
+        unbindService(serviceConnection)
+        val intentService = Intent(baseContext,MusicPlayerService::class.java)
+        stopService(intentService)
+        unregisterReceiver(broadcastReceiver)
+    }
+
+    override fun updateSong(song: Song) {
+        musicService.setPosition(position)
+        musicService.setSong(song)
+    }
+
+    override fun changeState() {
+        musicService.songState()
+    }
+
 }

@@ -11,11 +11,11 @@ public class SongListDiffCallback(
 
 
     override fun getOldListSize(): Int {
-        return mOldList.size ?: 0
+        return mOldList.size
     }
 
     override fun getNewListSize(): Int {
-        return mNewList.size ?: 0
+        return mNewList.size
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -27,8 +27,6 @@ public class SongListDiffCallback(
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        val oldSong = mOldList.get(oldItemPosition)
-        val newSong = mNewList.get(newItemPosition)
         val diffBundle = Bundle()
         if (diffBundle.size() == 0) return null
         return diffBundle

@@ -1,9 +1,11 @@
-package com.dester.androidcourse2020github
+package com.dester.androidcourse2020github.songRecycle
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.dester.androidcourse2020github.R
 import com.dester.androidcourse2020github.model.Song
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_song.*
@@ -23,6 +25,7 @@ class SongHolder(
 
     fun bind(song: Song) {
         this.song = song
+        Log.d("DesterCreate", "Create:$song")
         with(song) {
             tv_title.text = title
             tv_author.text = author
