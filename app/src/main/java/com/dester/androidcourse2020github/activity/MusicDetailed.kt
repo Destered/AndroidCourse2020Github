@@ -140,12 +140,25 @@ class MusicDetailed : AppCompatActivity(), Playable, MusicPlayerService.Callback
                         } else onTrackPlay()
                     }
 
+                    MusicNotification.ACTION_DELETE -> {
+                       clearAll()
+                    }
+
                     MusicNotification.ACTION_PREVIOUS -> {
                         onTrackPrevious()
                     }
                 }
             }
         }
+    }
+
+    private fun clearAll() {
+        notificationManager.cancelAll()
+        unbindService(serviceConnection)
+        val intentService = Intent(baseContext, MusicPlayerService::class.java)
+        stopService(intentService)
+        unregisterReceiver(broadcastReceiver)
+        onDestroy()
     }
 
     override fun onTrackPrevious() {

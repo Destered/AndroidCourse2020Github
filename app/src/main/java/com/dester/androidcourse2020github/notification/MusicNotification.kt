@@ -25,6 +25,7 @@ final class MusicNotification {
         val CHANNEL_ID: String = "chanel1"
         val ACTION_PREVIOUS: String = "previousaction"
         val ACTION_PLAY: String = "playaction"
+        val ACTION_DELETE: String = "deleteaction"
         val ACTION_NEXT: String = "nextaction"
         lateinit var notification: NotificationCompat.Builder
 
@@ -70,6 +71,17 @@ final class MusicNotification {
                 intentNext,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
+
+
+            val pendingIntentDelete: PendingIntent?
+            val intentDelete =
+                Intent(context, NotificationActionService::class.java).setAction(ACTION_DELETE)
+            pendingIntentDelete = PendingIntent.getBroadcast(
+                context,
+                0,
+                intentDelete,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
             val pendingIntentOpen: PendingIntent?
             val intentOpen = Intent(context, MusicDetailed::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
@@ -89,6 +101,7 @@ final class MusicNotification {
                 .setContentText(song.author)
                 .setContent(notificationView)
                 .setOnlyAlertOnce(true)
+                .setDeleteIntent(pendingIntentDelete)
                 .setContentIntent(pendingIntentOpen)
                 .setSmallIcon(R.drawable.note)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
