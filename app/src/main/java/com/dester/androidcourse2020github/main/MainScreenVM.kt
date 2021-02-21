@@ -1,8 +1,8 @@
 package com.dester.androidcourse2020github.main
 
-import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import com.dester.androidcourse2020github.core.BaseViewModel
 import kotlinx.coroutines.runBlocking
 
@@ -11,24 +11,27 @@ class MainScreenVM(
     owner: LifecycleOwner,
     val navigateToCity: (String) -> Unit
 ) : BaseViewModel() {
-    val popularCityName = getCityName()
     val popularCityAdapter = MainScreenAdapter { name -> navigateToCity(name) }
 
+    var latitude = MutableLiveData(35.0)
+    var longitude = 139.0
+
     init {
-        Log.d("Course/VM", "SetItems: ${popularCityName.toString()}")
         fillAdapterList(lifecycleScope)
+        latitude.observe(owner, {
+            fillAdapterList(lifecycleScope)
+        })
     }
 
     private fun fillAdapterList(lifecycleScope: LifecycleCoroutineScope) {
-        popularCityName.forEach {
-            getWeather(lifecycleScope, it)
-        }
+        getCityList(lifecycleScope, latitude.value ?: 35.0, longitude)
     }
 
-    fun getWeather(lifecycleScope: LifecycleCoroutineScope, name: String) = runBlocking {
-        val result = getCityWeather(lifecycleScope, name)
-        popularCityAdapter.addItem(result)
-    }
+    fun getCityList(lifecycleScope: LifecycleCoroutineScope, latitude: Double, longitude: Double) =
+        runBlocking {
+            val result = getNearCity(lifecycleScope, latitude, longitude)
+            popularCityAdapter.setItems(result)
+        }
 
 
 }

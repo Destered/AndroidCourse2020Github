@@ -10,4 +10,10 @@ interface WeatherApi {
     suspend fun getWeather(
         @Query("q") cityName: String
     ): WeatherResponse
+
+    @GET("find?cnt=20&lang=ru")
+    suspend fun getNearCity(
+        @Query("lat") latPosition: Double,
+        @Query("lon") lonPosition: Double
+    ): CityResponse
 }

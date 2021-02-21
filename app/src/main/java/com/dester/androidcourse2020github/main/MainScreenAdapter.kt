@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.dester.androidcourse2020github.WeatherResponse
 import com.dester.androidcourse2020github.databinding.CardPopularCityBinding
 import com.dester.androidcourse2020github.util.getWeatherPicURI
+import com.dester.androidcourse2020github.util.setTextTemp
 import java.util.*
 
 class MainScreenAdapter(
@@ -50,10 +51,22 @@ class MainScreenAdapter(
             Glide.with(binding.root.context)
                 .load(getWeatherPicURI(popularCity.weather[0].icon))
                 .into(binding.weatherPic)
+            val temp = popularCity.main.temp.toInt() - 273
+            if (temp < -20) {
+                setTextTemp(binding.tempDesc, 1)
+            } else if (temp < 0) {
+                setTextTemp(binding.tempDesc, 2)
+            } else if (temp == 0) {
+                setTextTemp(binding.tempDesc, 3)
+            } else if (temp < 20) {
+                setTextTemp(binding.tempDesc, 4)
+            } else {
+                setTextTemp(binding.tempDesc, 5)
+            }
 
             binding.cityName.text = popularCity.name
             binding.weatherDesc.text = popularCity.weather[0].description
-            binding.tempDesc.text = "${popularCity.main.temp.toInt().toString()} c"
+            binding.tempDesc.text = "$temp c"
 
             itemView.setOnClickListener {
                 navigateToCity(popularCity.name)
