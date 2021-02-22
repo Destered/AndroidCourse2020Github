@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/default_background_gray"
+            android:orientation="vertical">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/titleLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/cityWeatherName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.cityName}"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            tools:text="Kazan" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/countryPic"
+                            android:layout_width="32dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            app:getCountryImageFromCode="@{vm.countryCode}"
+                            tools:src="@color/colorPrimary">
+
+                        </androidx.appcompat.widget.AppCompatImageView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tempLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/tempPic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/temperature"
+                            tools:src="@drawable/temperature"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/tempText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.tempText}"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/windLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tempLayout">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/windPic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/windsock"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/windText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.windText}"
+                            android:textSize="16sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/compassPic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/compass"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/directionText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.windDirection}"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/cloudness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/windLayout">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/cloudPic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/cloud"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/cloudText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.clouds}"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/humidityLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cloudness">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/dropPic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/drop"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/humidityText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.humidity}"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/pressureLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/humidityLayout">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/barometer"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/pressureText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.pressure}"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sunTimeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/pressureLayout">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/sunRisePic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sunrise"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/sunRise"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.sunRise}"
+                            android:textSize="16sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/sunSetPic"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sunset"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id="@+id/sunSet"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:text="@{vm.sunSet}"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <!--                <LinearLayout
+                        android:id=""
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="12dp"
+                            android:scaleType="centerCrop"></androidx.appcompat.widget.AppCompatImageView>
+
+                        <TextView
+                            android:id=""
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/railway"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>-->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:setDrawable="@{vm.gradient}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.dester.androidcourse2020github.weather_detailed.WeatherVM" />
+
+    </data>
+
+</layout>
