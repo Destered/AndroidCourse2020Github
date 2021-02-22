@@ -23,8 +23,6 @@ import retrofit2.HttpException
 
 class MainScreenFragment : BaseFragment<MainScreenVM>() {
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +46,14 @@ class MainScreenFragment : BaseFragment<MainScreenVM>() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvCityList.adapter = viewModel.popularCityAdapter
         }
-
+        var fusedLocationClient: FusedLocationProviderClient? = null
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location ->
-                viewModel.latitude.postValue(location.latitude)
-                viewModel.longitude = location.latitude
+        fusedLocationClient?.lastLocation
+            ?.addOnSuccessListener { location: Location? ->
+                location?.let { location ->
+                    viewModel.latitude.postValue(location.latitude)
+                    viewModel.longitude = location.latitude
+                }
             }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
