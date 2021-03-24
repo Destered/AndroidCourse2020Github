@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.dester.androidcourse2020github.main.MainScreenFragment"
+        android:name="com.dester.androidcourse2020github.presentation.main.MainScreenFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/weatherDetailedFragment"
         tools:layout="@layout/fragment_detailed_weather"
-        android:name="com.dester.androidcourse2020github.weather_detailed.WeatherDetailedFragment"
+        android:name="com.dester.androidcourse2020github.presentation.detailed.WeatherDetailedFragment"
         android:label="fragment_detailed_weather">
         <argument
             android:name="cityName"

@@ -346,7 +346,7 @@
 
         <variable
             name="vm"
-            type="com.dester.androidcourse2020github.weather_detailed.WeatherVM" />
+            type="com.dester.androidcourse2020github.presentation.detailed.WeatherVM" />
 
     </data>
 

@@ -2,29 +2,30 @@ package com.dester.androidcourse2020github
 
 import com.google.gson.annotations.SerializedName
 
+
 data class WeatherResponse(
     @SerializedName("id")
     var id: Int,
     @SerializedName("clouds")
-    var clouds: Clouds,
+    var clouds: Clouds?,
     @SerializedName("cod")
-    var cod: Int,
+    var cod: Int?,
     @SerializedName("coord")
-    var coord: Coord,
+    var coord: Coord?,
     @SerializedName("dt")
-    var dt: Int,
+    var dt: Int?,
     @SerializedName("main")
     var main: Main,
     @SerializedName("name")
     var name: String,
     @SerializedName("sys")
-    var sys: Sys,
+    var sys: Sys?,
     @SerializedName("timezone")
-    var timezone: Int,
+    var timezone: Int?,
     @SerializedName("visibility")
-    var visibility: Int,
+    var visibility: Int?,
     @SerializedName("weather")
-    var weather: List<Weather>,
+    var weather: List<Weather>?,
     @SerializedName("wind")
     var wind: Wind
 )
@@ -84,5 +85,5 @@ data class Wind(
     @SerializedName("deg")
     var deg: Int,
     @SerializedName("speed")
-    var speed: Double
+    var speed: Double?
 )

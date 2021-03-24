@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.main
+package com.dester.androidcourse2020github.presentation.main
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dester.androidcourse2020github.WeatherResponse
 import com.dester.androidcourse2020github.databinding.CardPopularCityBinding
-import com.dester.androidcourse2020github.util.getWeatherPicURI
-import com.dester.androidcourse2020github.util.setTextTemp
+import com.dester.androidcourse2020github.presentation.util.getWeatherPicURI
+import com.dester.androidcourse2020github.presentation.util.setTextTemp
 import java.util.*
 
 class MainScreenAdapter(
@@ -49,7 +49,7 @@ class MainScreenAdapter(
             Log.d("Course/Adapter", "Bind: ${popularCity.name}")
 
             Glide.with(binding.root.context)
-                .load(getWeatherPicURI(popularCity.weather[0].icon))
+                .load(popularCity.weather?.get(0)?.let { getWeatherPicURI(it.icon) })
                 .into(binding.weatherPic)
             val temp = popularCity.main.temp.toInt() - 273
             if (temp < -20) {
@@ -65,7 +65,7 @@ class MainScreenAdapter(
             }
 
             binding.cityName.text = popularCity.name
-            binding.weatherDesc.text = popularCity.weather[0].description
+            binding.weatherDesc.text = popularCity.weather?.get(0)?.description
             binding.tempDesc.text = "$temp c"
 
             itemView.setOnClickListener {

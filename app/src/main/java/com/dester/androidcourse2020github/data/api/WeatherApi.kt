@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.api
+package com.dester.androidcourse2020github.data.api
 
 import com.dester.androidcourse2020github.WeatherResponse
 import retrofit2.http.GET

@@ -1,5 +1,6 @@
-package com.dester.androidcourse2020github.main
+package com.dester.androidcourse2020github.presentation.main
 
+import CityDatabase
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.location.Location
@@ -12,8 +13,10 @@ import android.widget.SearchView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dester.androidcourse2020github.core.BaseFragment
+import androidx.room.Room
+import com.dester.androidcourse2020github.data.repositories.CityRepository
 import com.dester.androidcourse2020github.databinding.FragmentMainBinding
+import com.dester.androidcourse2020github.presentation.core.BaseFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
@@ -23,13 +26,20 @@ import retrofit2.HttpException
 
 class MainScreenFragment : BaseFragment<MainScreenVM>() {
 
+
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val context = requireContext()
+        val databaseClass = CityDatabase::class.java
+        val database = Room.databaseBuilder(context, databaseClass, "cityDB").build()
+        val repository = CityRepository(database.cityDao())
         viewModel = MainScreenVM(
             lifecycleScope,
             this,
-            { name -> navigateToDetailWeather(name) })
+            { name -> navigateToDetailWeather(name) },
+            repository
+        )
     }
 
     @SuppressLint("MissingPermission")
@@ -81,6 +91,7 @@ class MainScreenFragment : BaseFragment<MainScreenVM>() {
         Log.d("Course/FragmentMain", "Set Root")
         return binding.root
     }
+
 
     fun navigateToDetailWeather(cityName: String) {
         val action =

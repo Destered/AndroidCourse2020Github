@@ -85,7 +85,7 @@
 
         <variable
             name="vm"
-            type="com.dester.androidcourse2020github.main.MainScreenVM" />
+            type="com.dester.androidcourse2020github.presentation.main.MainScreenVM" />
     </data>
 
 </layout>

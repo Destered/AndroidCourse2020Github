@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.core
+package com.dester.androidcourse2020github.presentation.core
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

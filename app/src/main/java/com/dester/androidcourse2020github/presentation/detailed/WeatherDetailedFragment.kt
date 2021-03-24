@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.weather_detailed
+package com.dester.androidcourse2020github.presentation.detailed
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.dester.androidcourse2020github.R
-import com.dester.androidcourse2020github.core.BaseFragment
 import com.dester.androidcourse2020github.databinding.FragmentDetailedWeatherBinding
+import com.dester.androidcourse2020github.presentation.core.BaseFragment
 
 class WeatherDetailedFragment : BaseFragment<WeatherVM>() {
     override fun onCreate(savedInstanceState: Bundle?) {

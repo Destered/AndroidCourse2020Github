@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.util
+package com.dester.androidcourse2020github.presentation.util
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView

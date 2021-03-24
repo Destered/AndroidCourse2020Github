@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.util
+package com.dester.androidcourse2020github.presentation.util
 
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,4 +1,4 @@
-package com.dester.androidcourse2020github.util
+package com.dester.androidcourse2020github.presentation.util
 
 fun getWeatherPicURI(name: String): String {
     return "http://openweathermap.org/img/wn/$name@2x.png"

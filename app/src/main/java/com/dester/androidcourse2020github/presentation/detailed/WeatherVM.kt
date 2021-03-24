@@ -1,13 +1,13 @@
-package com.dester.androidcourse2020github.weather_detailed
+package com.dester.androidcourse2020github.presentation.detailed
 
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.dester.androidcourse2020github.WeatherResponse
-import com.dester.androidcourse2020github.core.BaseViewModel
-import com.dester.androidcourse2020github.main.getCityWeather
-import com.dester.androidcourse2020github.util.DateFormatHelper
+import com.dester.androidcourse2020github.presentation.core.BaseViewModel
+import com.dester.androidcourse2020github.presentation.main.getCityWeather
+import com.dester.androidcourse2020github.presentation.util.DateFormatHelper
 import kotlinx.coroutines.runBlocking
 import java.util.*
 import kotlin.math.roundToInt
@@ -62,19 +62,19 @@ class WeatherVM(
         pressure.postValue("Давление: ${result.main.pressure} гПа")
         humidity.postValue("Влажность: ${result.main.humidity}%")
 
-        countryCode.postValue(result.sys.country)
-        sunRise.postValue("Восход: ${DateFormatHelper.SimpleTime.format(Date(result.sys.sunrise.toLong() * 1000))}")
-        sunSet.postValue("Закат: ${DateFormatHelper.SimpleTime.format(Date(result.sys.sunset.toLong() * 1000))}")
+        countryCode.postValue(result.sys?.country)
+        sunRise.postValue("Восход: ${DateFormatHelper.SimpleTime.format(Date(result.sys?.sunrise?.toLong() ?: 0 * 1000))}")
+        sunSet.postValue("Закат: ${DateFormatHelper.SimpleTime.format(Date(result.sys?.sunset?.toLong() ?: 0 * 1000))}")
 
-        visibility.postValue(result.visibility)
+        result.visibility.let { visibility.postValue(it) }
 
 
 
-        windSpeed = result.wind.speed
+        windSpeed = result.wind.speed ?: 0.0
         windDirection.postValue("Направление: ${getWindDirection(result.wind.deg)}")
         windText.postValue("Ветер: $windSpeed м/сек")
 
-        clouds.postValue("Облачность: ${result.clouds.all}%")
+        clouds.postValue("Облачность: ${result.clouds?.all}%")
     }
 
     private fun checkTemp(temp: Int, tempFeelsLike: Int): String {
